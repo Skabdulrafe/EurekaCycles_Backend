@@ -6,6 +6,7 @@ import dbConnect from './dbconnection/dbconnection.js';
 // import enquiryRoute from './routes/enquiryRotues.js';
 // import orderRoute from './routes/orderRoutes.js';
 import productd from './routes/productRoutes.js';
+import userRouter from './routes/userRoute.js';
 // import userRout from './routes/userRoutes.js';
 // import preorderRouter from './routes/preorderroutes.js';
 dotenv.config();//it loads 
@@ -15,6 +16,8 @@ app.use(express.json())//for parsing json data
 // app.use('/client',enquiryRoute)
 // app.use('/order',orderRoute)
 app.use('/product',productd)
+app.use('/user',userRouter) 
+
 // app.use('/user',userRout)
 // app.use('/pre',preorderRouter)
 app.listen(process.env.PORT,()=>{
