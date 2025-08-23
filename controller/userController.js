@@ -1,5 +1,5 @@
 import { comparePassword, hashPassword } from "../Authentication/bcrypt.js";
-import { genrateToken, veriFyJwtToken } from "../Authorization/jwtToken.js";
+import { genrateToken, veriFyJwtToken } from "../Authentication/jwtToken.js";
 import { getAllUserServices, userCreateServices, userLoginServices } from "../services/userService.js";
 
 export let registerController = async (req, res) => {
