@@ -9,12 +9,14 @@ import productd from './routes/productRoutes.js';
 import userRouter from './routes/userRoute.js';
 // import userRout from './routes/userRoutes.js';
 // import preorderRouter from './routes/preorderroutes.js';
+import preorderRoute from './routes/preorderRoute.js';
 dotenv.config();//it loads 
 dbConnect(process.env.DBURL,process.env.DBNAME);
 app.use(bodyParser.urlencoded({extended:false}))//for url encoded data
 app.use(express.json())//for parsing json data
 // app.use('/client',enquiryRoute)
 // app.use('/order',orderRoute)
+app.use('/preorder',preorderRoute)
 app.use('/product',productd)
 app.use('/user',userRouter) 
 

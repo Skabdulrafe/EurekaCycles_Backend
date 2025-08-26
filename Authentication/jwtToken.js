@@ -1,19 +1,46 @@
-import jwt from 'jsonwebtoken'
-export let genrateToken=async(payload,secreatekey)=>{
-  try {
-     let jwtToken =await jwt.sign(payload,secreatekey)
-     return jwtToken
-  } catch (error) {
-      console.log(`error occured at ganToken ${error.message}`)
-  }
-   
-}
+import jwt from "jsonwebtoken";
+ 
+// Token Generation
+export const GenerateToken = (email) => {
+  const token = jwt.sign({ email }, process.env.SECRETKEY); 
+  return token;
+};
 
-export let veriFyJwtToken=async(token,privatekey)=>{
+// Middleware for Authentication
+const authenticateToken = (req, res, next) => {
+  const token = req.header("Authorization")?.split(" ")[1]; // Extracting the token from "Bearer <token>"
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
+
   try {
-    let verify= await jwt.verify(token,privatekey)
-    return verify
-  } catch (error) {
-    console.log(`error occured at veriFyJwtToken ${error.message}`)
+    const decoded = jwt.verify(token, process.env.SECRETKEY);
+    req.user = decoded; // Attaching the decoded user info to the request object
+    next();
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" });
+    //res.status(401).json(err);
+    console.log(err);
   }
-}
+};
+
+export default authenticateToken;
+
+
+// import jwt from 'jsonwebtoken'
+// export let genrateToken=async(payload,secreatekey)=>{
+//   try {
+//      let jwtToken =await jwt.sign(payload,secreatekey)
+//      return jwtToken
+//   } catch (error) {
+//       console.log(`error occured at ganToken ${error.message}`)
+//   }
+   
+// }
+
+// export let veriFyJwtToken=async(token,privatekey)=>{
+//   try {
+//     let verify= await jwt.verify(token,privatekey)
+//     return verify
+//   } catch (error) {
+//     console.log(`error occured at veriFyJwtToken ${error.message}`)
+//   }
+// }
