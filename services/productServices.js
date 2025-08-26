@@ -24,12 +24,22 @@ return "success"
 export let getProductServices = async () => {
     try {
         let data = await productModel.find();
-        console.log(data);
-        return "success";
+       // console.log(data);
+        return data;
     } catch (error) {
         console.log('Error while retrieving users:', error);
         return "error";
     }
+};
+export let getoneProductServices = async (productId) => {
+  try {
+    let data = await productModel.findOne({_id:productId });
+    //    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("Error while retrieving users:", error);
+    return "error";
+  }
 };
 export let Deleteservices=async(productId,productDetails)=>{
     try{

@@ -1,5 +1,5 @@
 //  import { generateTokenproduct, verifyToken } from "../autharization/jwtProduct.js";
-import { createProductservices, Deleteservices, getProductServices, updatedProductservices } from "../services/productServices.js";
+import { createProductservices, Deleteservices, getoneProductServices, getProductServices, updatedProductservices } from "../services/productServices.js";
 
 export let addProduct = async (req, res) => {
 //    let {productId}=req.body
@@ -23,8 +23,8 @@ export let addProduct = async (req, res) => {
 export let readproduct = async (req, res) => {
     try {
         let status = await getProductServices();
-        if (status == "success") {
-            return res.status(201).send('product read successfully');
+        if (status) {
+            return res.status(201).send(status);
         } else {
             return res.status(400).send('error: failed to fetch product');
 
@@ -35,13 +35,26 @@ export let readproduct = async (req, res) => {
     }
 };
 
+export let getOneproduct  = async (req, res) => {
+    try {
+        let productId= req.params.id
+        let status = await getoneProductServices(productId);
+        // if (status == "success") {
+        //     return res.status(201).send('product read successfully');
+        // } else {
+        //     return res.status(400).send('error: failed to fetch product');
+        // }
+        res.status(201).send(status)
+    } catch (error) {
+        return res.status(500).send(`error occurred: ${error}`);
+    } }
  export let updateProduct=async(req,res)=>{
-    let productId= req.params.id
-    let productDetails=req.body
-    console.log(productId)
+    // let productId= req.params.id
+    // let productDetails=req.body
+    // console.log(productId)
 let Tokenproduct=generateTokenproduct(productId)
 console.log(Tokenproduct)
-let verifyTokenp=verifyToken(Tokenproduct)
+// let verifyTokenp=verifyToken(Tokenproduct)
   try {
     if(productId==verifyTokenp){
     let status = await updatedProductservices(productId,productDetails);

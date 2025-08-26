@@ -23,7 +23,7 @@ const productSchema = new mongoose.Schema(
 
     images: { type: [String] },          // Array of image URLs
 
-    productCategory: { type: [String], required: true }, // e.g., ["Bicycle", "MTB"]
+    productCategory: { type: String, required: true }, // e.g., ["Bicycle", "MTB"]
 
     variants: {
       tyreSize: [
