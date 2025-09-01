@@ -75,3 +75,13 @@ export let getoneuserServices = async (userId) => {
     return "error";
   }
 };
+export let getalluserServices = async () => {
+  try {
+    let data = await usersModel.find();
+    //console.log(data);
+    return data;
+  } catch (error) {
+    console.log("Error while retrieving users:", error);
+    return "error";
+  }
+};

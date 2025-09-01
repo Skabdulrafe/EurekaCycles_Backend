@@ -3,6 +3,7 @@ import {
   getoneuserServices,
   updatedUserservices,
   deleteUserService,
+  getalluserServices,
 } from "../services/userServices.js";
 import { compairpassSer, hashPassword } from "../encrpytion/encrypt.js";
 import { dbpassen } from "../services/userServices.js";
@@ -69,7 +70,7 @@ export let getprofile = async (req, res) => {
 };
 export let updateUser = async (req, res) => {
   let userId = req.params.id;
-  let userDetails = req.body;
+  let userDetails  = req.body;
   try {
     let status = await updatedUserservices(userId, userDetails);
     if (status == "success") {
@@ -102,6 +103,20 @@ export let getOneUser = async (req, res) => {
      let userId = req.params.id;
     // let email=req.body
     let status = await getoneuserServices(userId);
+    if (status) {
+      return res.status(201).send(status);
+    } else {
+      return res.status(400).send("error: failed to fetch product");
+    }
+  } catch (error) {
+    return res.status(500).send(`error occurred: ${error}`);
+  }
+};
+export let getallUser= async (req, res) => {
+  try {
+    //  let userId = req.params.id;
+    // let email=req.body
+    let status = await getalluserServices();
     if (status) {
       return res.status(201).send(status);
     } else {

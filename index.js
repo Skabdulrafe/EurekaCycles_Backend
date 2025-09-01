@@ -8,6 +8,8 @@ import cors from "cors";
 // import orderRoute from './routes/orderRoutes.js';
 import productd from './routes/productRoutes.js';
 import userRout from './routes/userRoutes.js';
+import orderRoute from './routes/orderRoutes.js';
+import preorderRouter from './routes/preorderroutes.js';
 // import userRout from './routes/userRoutes.js';
 // import preorderRouter from './routes/preorderroutes.js';
 dotenv.config();//it loads 
@@ -16,10 +18,10 @@ dbConnect(process.env.DBURL,process.env.DBNAME);
 app.use(bodyParser.urlencoded({extended:false}))//for url encoded data
 app.use(express.json())//for parsing json data
 // app.use('/client',enquiryRoute)
-// app.use('/order',orderRoute)
+ app.use('/order',orderRoute)
 app.use('/product',productd)
 app.use('/user',userRout)
-// app.use('/pre',preorderRouter)
+ app.use('/pre',preorderRouter)
 app.listen(process.env.PORT,()=>{
     console.log(`the server statrted at http://localhost:${process.env.PORT} `);
 })
